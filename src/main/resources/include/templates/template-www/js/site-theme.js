@@ -8,6 +8,9 @@
     const applyTheme = () => {
         const isDark = preference === 'dark' || (!preference && systemTheme.matches);
         root.classList.toggle('dark', isDark);
+        document.querySelectorAll('[data-theme-stylesheet]').forEach((sheet) => {
+            sheet.media = sheet.dataset.themeStylesheet === (isDark ? 'dark' : 'light') ? 'all' : 'not all';
+        });
         document.querySelectorAll('[data-theme-icon]').forEach((icon) => {
             icon.className = isDark ? 'ri-sun-line text-lg' : 'ri-moon-line text-lg';
         });

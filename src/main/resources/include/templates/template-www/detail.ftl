@@ -1,18 +1,18 @@
 <#include "header.ftl">
-<section class="py-12 md:py-16 bg-gray-50 dark:bg-gray-950 min-h-screen">
-    <div class="container mx-auto px-4 md:px-6">
-        <div class="flex flex-col lg:flex-row gap-8">
-            <main class="lg:w-3/4 w-full">
+<#import "_site/page-intro.ftl" as shellIntro>
+<section class="zr-page zr-blog">
+    <#if log??>
+        <@shellIntro.pageIntro title=log.title
+            breadcrumbs=[{"label": _res.home, "href": baseUrl}, {"label": log.typeName, "href": log.typeUrl}, {"label": log.title}]
+            breadcrumbLabel=_res.breadcrumb
+            meta=[{"icon": "ri-folder-line", "label": log.typeName},
+                  {"icon": "ri-time-line", "label": log.releaseTime?split("T")[0]},
+                  {"icon": "ri-eye-line", "label": log.click?string + ' ' + _res.views}]/>
+    </#if>
+    <div class="container zr-blog-content">
+        <div class="zr-blog-layout">
+            <main class="zr-blog-main">
                 <#if log??>
-                    <nav class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-6 pl-1">
-                        <a href="/" class="hover:text-primary transition-colors flex items-center gap-1">
-                            <i class="ri-home-5-line"></i> ${_res.home}
-                        </a>
-                        <i class="ri-arrow-right-s-line text-gray-300"></i>
-                        <a href="${log.typeUrl}" class="hover:text-primary transition-colors">${log.typeName}</a>
-                        <i class="ri-arrow-right-s-line text-gray-300"></i>
-                        <span class="text-gray-900 dark:text-white font-medium truncate max-w-[200px] sm:max-w-md">${log.title}</span>
-                    </nav>
                     <#include "article.ftl">
                     <#include "comment.ftl">
                 <#else>

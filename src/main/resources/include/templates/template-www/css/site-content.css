@@ -1,0 +1,201 @@
+.zr-page {
+    background: var(--site-paper);
+    color: var(--site-ink);
+}
+
+.zr-page h1, .zr-page h2, .zr-page h3 {
+    color: var(--site-ink);
+    line-height: 1.45;
+    scroll-margin-top: 96px;
+    text-wrap: balance;
+}
+
+.zr-page h1 { font-size: 36px; }
+
+.zr-site .zr-page [class~="bg-white"],
+.dark .zr-site .zr-page [class~="dark:bg-black"] {
+    background-color: var(--site-paper);
+}
+
+.zr-site .zr-page [class~="bg-gray-50"],
+.dark .zr-site .zr-page [class~="dark:bg-gray-950"] {
+    background-color: var(--site-soft);
+}
+
+.zr-site .zr-page :is(.border-gray-100, .border-gray-200, .border-gray-300),
+.dark .zr-site .zr-page :is([class~="dark:border-gray-700"], [class~="dark:border-gray-800"]) {
+    border-color: var(--site-line);
+}
+
+.zr-site .zr-page .rounded-xl { border-radius: var(--site-radius); }
+
+.zr-site .zr-page > .zr-page-intro,
+.dark .zr-site .zr-page > .zr-page-intro {
+    padding-top: 36px;
+    padding-bottom: 44px;
+    background: var(--site-tint);
+    border-color: var(--site-tint-line);
+}
+
+.zr-page-intro h1::before {
+    content: "";
+    display: block;
+    width: 24px;
+    height: 3px;
+    margin-bottom: 14px;
+    background: var(--color-primary);
+}
+
+.zr-site :is(a, button, input[type="submit"]):is(.bg-blue-600, .bg-blue-700),
+.dark .zr-site :is(a, button, input[type="submit"]):is(.bg-blue-600, .bg-blue-700) {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.zr-site :is(a, button, input[type="submit"]):is(.bg-blue-600, .bg-blue-700):hover,
+.dark .zr-site :is(a, button, input[type="submit"]):is(.bg-blue-600, .bg-blue-700):hover {
+    background-color: var(--site-primary-hover);
+}
+
+.zr-page a:focus-visible, .zr-page button:focus-visible,
+.zr-page summary:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+}
+
+@media (max-width: 639px) {
+    .zr-page h1 { font-size: 28px; }
+    .zr-site .zr-page > .zr-page-intro,
+    .dark .zr-site .zr-page > .zr-page-intro {
+        padding-top: 24px;
+        padding-bottom: 32px;
+    }
+}
+
+/* Shared reading styles for website content, articles and plugin Markdown. */
+.zr-site :is(.zr-rich-text, .markdown-body) {
+    color: var(--site-muted);
+    font-size: 0.9375rem;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.zr-site :is(.zr-rich-text, .markdown-body) :is(h1, h2, h3, h4, h5, h6) {
+    color: var(--site-ink);
+    font-weight: 700;
+    line-height: 1.45;
+    margin: 2rem 0 1rem;
+    scroll-margin-top: 96px;
+}
+
+.zr-site :is(.zr-rich-text, .markdown-body) h1 { font-size: 2rem; }
+.zr-site :is(.zr-rich-text, .markdown-body) h2 { font-size: 1.5rem; }
+.zr-site :is(.zr-rich-text, .markdown-body) h3 { font-size: 1.25rem; }
+.zr-site :is(.zr-rich-text, .markdown-body) h4 { font-size: 1.125rem; }
+.zr-site :is(.zr-rich-text, .markdown-body) > :first-child { margin-top: 0; }
+.zr-site :is(.zr-rich-text, .markdown-body) > :last-child { margin-bottom: 0; }
+.zr-site :is(.zr-rich-text, .markdown-body) p { margin: 0 0 1rem; }
+
+.zr-site :is(.zr-rich-text, .markdown-body) :is(ul, ol) {
+    margin: 0.75rem 0 1.25rem;
+    padding-left: 1.5rem;
+}
+.zr-site :is(.zr-rich-text, .markdown-body) ul { list-style: disc; }
+.zr-site :is(.zr-rich-text, .markdown-body) ol { list-style: decimal; }
+.zr-site :is(.zr-rich-text, .markdown-body) li { margin: 0.4rem 0; }
+.zr-site :is(.zr-rich-text, .markdown-body) li > :is(ul, ol) { margin-block: 0.25rem; }
+
+.zr-site :is(.zr-rich-text, .markdown-body) a {
+    color: var(--site-link);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.zr-site :is(.zr-rich-text, .markdown-body) blockquote {
+    margin: 1.5rem 0;
+    border-left: 3px solid var(--color-primary);
+    padding: 0.75rem 1rem;
+    background: var(--site-soft);
+}
+.zr-site :is(.zr-rich-text, .markdown-body) blockquote > :last-child { margin-bottom: 0; }
+
+.zr-site :is(.zr-rich-text, .markdown-body) code {
+    border-radius: 4px;
+    background: var(--site-soft);
+    padding: 0.125rem 0.35rem;
+    color: var(--site-code);
+    font-size: 0.875em;
+}
+.zr-site :is(.zr-rich-text, .markdown-body) pre {
+    max-width: 100%;
+    overflow-x: auto;
+    margin: 1.25rem 0;
+    border: 1px solid var(--site-line);
+    border-radius: var(--site-radius);
+    background: var(--site-soft);
+    padding: 1rem;
+    color: var(--site-ink);
+    white-space: pre;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+.zr-site :is(.zr-rich-text, .markdown-body) pre code {
+    display: block;
+    background: transparent;
+    padding: 0;
+    color: inherit;
+}
+
+.zr-site :is(.zr-rich-text, .markdown-body) table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    margin: 1.25rem 0;
+    border-collapse: collapse;
+}
+.zr-site :is(.zr-rich-text, .markdown-body) :is(th, td) {
+    border: 1px solid var(--site-line);
+    padding: 0.625rem 0.875rem;
+    text-align: left;
+}
+.zr-site :is(.zr-rich-text, .markdown-body) th {
+    background: var(--site-soft);
+    color: var(--site-ink);
+    font-weight: 600;
+}
+.zr-site :is(.zr-rich-text, .markdown-body) :is(img, video, iframe) {
+    display: block;
+    max-width: 100%;
+    border-radius: var(--site-radius);
+}
+.zr-site :is(.zr-rich-text, .markdown-body) :is(img, video) { height: auto; }
+.zr-site :is(.zr-rich-text, .markdown-body) hr {
+    margin: 2rem 0;
+    border: 0;
+    border-top: 1px solid var(--site-line);
+}
+.zr-site .zr-rich-text--compact { font-size: 0.875rem; line-height: 1.65; }
+.zr-site .zr-rich-text--compact :is(h2, h3, h4) { margin-top: 1.25rem; font-size: 1rem; }
+
+/* Shared surfaces and controls use the website's neutral palette. */
+.zr-site .zr-page :is(.text-gray-500, .text-gray-600, .text-gray-700) { color: var(--site-muted); }
+.zr-site .zr-page :is(.text-gray-800, .text-gray-900, .text-gray-950) { color: var(--site-ink); }
+.zr-site .zr-page :is(a, i).text-blue-600 { color: var(--site-link); }
+.zr-site .zr-page :is(a, button):hover { --site-link: var(--color-primary); }
+.zr-site .zr-panel {
+    border: 1px solid var(--site-line);
+    border-radius: var(--site-radius);
+    background: var(--site-paper);
+}
+.zr-site .zr-field {
+    min-width: 0;
+    background: var(--site-soft);
+    border: 1px solid var(--site-line);
+    border-radius: var(--site-radius);
+    color: var(--site-ink);
+}
+.zr-site .zr-field:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}

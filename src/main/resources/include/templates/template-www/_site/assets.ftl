@@ -1,8 +1,9 @@
-<#-- url follows the blog template contract and points to the consumer's local copy of the public CSS/JS/fonts. -->
+<#-- url follows the blog contract and resolves the theme's public resources for each consumer. -->
 <#macro head url _res={}>
     <link href="${url?html}/fonts/remixicon.css" rel="stylesheet"/>
     <link href="${url?html}/css/site-shell.css" rel="stylesheet"/>
-    <style>:root { --color-primary: ${(_res.colorPrimary!'#1677ff')?html}; }</style>
+    <link href="${url?html}/css/site-content.css" rel="stylesheet"/>
+    <style>:root { --color-primary: ${(_res.colorPrimary?has_content)?then(_res.colorPrimary, '#1677ff')?html}; }</style>
     <script src="${url?html}/js/site-theme.js"></script>
     <script src="${url?html}/js/tailwindcss-3.4.6.js"></script>
     <script>

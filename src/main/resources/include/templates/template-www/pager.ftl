@@ -1,6 +1,6 @@
 <#if pager??>
-    <nav aria-label="Pagination" class="my-16 flex justify-center">
-        <ul class="flex items-center gap-3 text-sm font-medium select-none">
+    <nav aria-label="Pagination" class="zr-pagination mt-10 flex justify-center">
+        <ul class="flex flex-wrap items-center justify-center gap-2 text-sm font-medium select-none">
 
             <#-- 首页按钮 -->
             <#if !pager.startPage>
@@ -15,7 +15,7 @@
             <#-- 页码列表 -->
             <#list pager.pageList as page>
                 <li>
-                    <a href="${page.url}"
+                    <a href="${page.url}" <#if page.current>aria-current="page"</#if>
                        class="h-10 min-w-[2.5rem] px-3 flex items-center justify-center rounded-lg border transition-colors
                        <#if page.current>
                            bg-blue-600 text-white border-blue-600 cursor-default

@@ -1,21 +1,22 @@
-<aside class="lg:w-1/4 w-full space-y-6">
+<aside class="zr-blog-sidebar space-y-6">
     <#-- 广告位 -->
     <#if _res.widgetAd?has_content>
-        <div class="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg p-5">
+        <div class="zr-panel p-5">
             ${_res.widgetAd}
         </div>
     </#if>
 
     <#-- 搜索框 -->
-    <form action="${searchUrl}" method="post" class="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg p-5 space-y-4">
+    <form action="${searchUrl}" method="post" class="zr-panel p-5 space-y-4">
         <h3 class="text-lg font-bold text-gray-950 dark:text-white">${_res.search}</h3>
         <div class="flex items-stretch gap-2">
             <input
-                    type="text"
+                    type="search"
+                    aria-label="${_res.search?html}"
                     name="key"
                     value="${key!""}"
                     placeholder="${_res.searchTip}"
-                    class="min-w-0 h-11 flex-1 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-950 rounded-lg px-4 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 focus:outline-none w-full transition-all dark:text-white"
+                    class="zr-field min-w-0 h-11 flex-1 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-950 rounded-lg px-4 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 focus:outline-none w-full transition-all dark:text-white"
             />
             <button
                     type="submit"
@@ -33,7 +34,7 @@
                 <#switch plugin.pluginName>
 
                     <#case "types">
-                        <div class="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg p-5">
+                        <div class="zr-panel p-5">
                             <h3 class="text-lg font-bold text-gray-950 dark:text-white mb-4 pb-2 border-b border-gray-100 dark:border-gray-800">${_res.category}</h3>
                             <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                                 <#list init.types as type>
@@ -49,7 +50,7 @@
                         <#break>
 
                     <#case "links">
-                        <div class="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg p-5">
+                        <div class="zr-panel p-5">
                             <h3 class="text-lg font-bold text-gray-950 dark:text-white mb-4 pb-2 border-b border-gray-100 dark:border-gray-800">${_res.link}</h3>
                             <ul class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
                                 <#list init.links as link>
@@ -64,7 +65,7 @@
                         <#break>
 
                     <#case "archives">
-                        <div class="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg p-5">
+                        <div class="zr-panel p-5">
                             <h3 class="text-lg font-bold text-gray-950 dark:text-white mb-4 pb-2 border-b border-gray-100 dark:border-gray-800">${_res.archive}</h3>
                             <ul id="archive-list" class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
                                 <#list init.archiveList as archive>
@@ -123,7 +124,7 @@
                         <#break>
 
                     <#case "tags">
-                        <div class="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg p-5">
+                        <div class="zr-panel p-5">
                             <h3 class="text-lg font-bold text-gray-950 dark:text-white mb-4 pb-2 border-b border-gray-100 dark:border-gray-800">${_res.tag}</h3>
                             <div class="flex flex-wrap gap-2">
                                 <#list init.tags as tag>

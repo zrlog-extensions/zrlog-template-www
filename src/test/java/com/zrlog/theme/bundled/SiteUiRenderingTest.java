@@ -45,8 +45,10 @@ public class SiteUiRenderingTest {
                 assertTrue(document.head().html().contains("--color-primary: #165dff"));
                 assertEquals(1, document.select("style#custom-style").size());
                 assertEquals(1, document.select("form[action='/notes/search']").size());
+                assertEquals(1, document.select("h1").size());
                 assertTrue(document.text().contains("Example article"));
                 if (page.equals("detail")) {
+                    assertEquals("/notes/", document.selectFirst(".zr-page-intro nav a").attr("href"));
                     assertEquals(1, document.select("#article-body").size());
                     assertEquals(1, document.select("#comment plugin[name=comments]").size());
                 }
@@ -63,6 +65,8 @@ public class SiteUiRenderingTest {
         Map<String, Object> model = blogModel("en_US");
         model.put("init", Map.of("logNavs", List.of()));
         Map<String, Object> resources = resources("en_US");
+        resources.put("navBarBrand", "");
+        resources.put("colorPrimary", "");
         model.put("_res", resources);
         model.put("webSite", Map.of("title", "Empty site"));
         StringWriter output = new StringWriter();
@@ -71,6 +75,8 @@ public class SiteUiRenderingTest {
         Document document = Jsoup.parse(output.toString());
         assertEquals(0, document.select("a.zr-nav-link").size());
         assertEquals(1, document.select("#footer").size());
+        assertEquals("Empty site", document.selectFirst("nav#header a span").text());
+        assertTrue(document.head().html().contains("--color-primary: #1677ff"));
         assertTrue(document.text().contains("Empty site"));
         assertFalse(document.head().html().contains("undefined"));
     }

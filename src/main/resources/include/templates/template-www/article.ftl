@@ -1,27 +1,6 @@
-<article class="bg-white dark:bg-black rounded-lg p-6 md:p-8 border border-gray-200 dark:border-gray-800">
-    <!-- 标题 -->
-    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">${log.title}</h2>
-
-    <!-- 分类与发布时间 -->
-    <div class="flex items-center flex-wrap gap-6 text-sm text-gray-500 dark:text-gray-400 mb-8 pb-8 border-b border-gray-100 dark:border-gray-800">
-        <span class="flex items-center gap-2">
-            <i class="ri-folder-line text-lg text-blue-600"></i>
-            <a class="hover:text-blue-600 transition-colors font-medium" href="${log.typeUrl}" rel="tag">${log.typeName}</a>
-        </span>
-        <span class="text-gray-200 dark:text-gray-700">|</span>
-        <span class="flex items-center gap-2">
-            <i class="ri-time-line text-lg text-gray-400"></i>
-            ${log.releaseTime?split("T")[0]}
-        </span>
-        <span class="text-gray-200 dark:text-gray-700">|</span>
-        <span class="flex items-center gap-2">
-            <i class="ri-eye-line text-lg text-gray-400"></i>
-            ${log.click} ${_res.views}
-        </span>
-    </div>
-
+<article class="zr-panel zr-blog-article p-6 md:p-8">
     <!-- 正文内容 -->
-    <div class="markdown-body prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 leading-top-level-height">
+    <div class="zr-rich-text markdown-body">
         ${log.content!''}
     </div>
 

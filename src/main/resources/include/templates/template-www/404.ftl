@@ -1,29 +1,9 @@
-<section class="py-12">
-    <div role="main" class="px-4">
-        <article class="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg p-8 text-center">
-            <header class="mb-6">
-                <h1 class="text-2xl font-bold text-red-600">${_res.notFound}</h1>
-            </header>
-
-            <div class="space-y-4">
-                <p class="text-gray-600 dark:text-gray-400">${_res.notFoundDescription}</p>
-
-                <form method="post" action="${searchUrl}" class="flex flex-col sm:flex-row items-center gap-3 justify-center">
-                    <input
-                            type="text"
-                            name="key"
-                            value='${key!""}'
-                            placeholder="${_res.searchTip}"
-                            class="w-full sm:w-64 border border-gray-300 dark:border-gray-700 bg-white dark:bg-black rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
-                    <input
-                            type="submit"
-                            name="submit"
-                            value="${_res.search}"
-                            class="bg-primary text-white text-sm px-5 py-2 rounded-lg hover:bg-primary cursor-pointer"
-                    />
-                </form>
-            </div>
-        </article>
-    </div>
-</section>
+<article class="zr-panel p-6 md:p-8">
+    <h2 class="text-2xl font-bold mb-3">${_res.notFound?html}</h2>
+    <p class="text-gray-600 mb-6">${_res.notFoundDescription?html}</p>
+    <form method="post" action="${searchUrl?html}" class="flex flex-col sm:flex-row gap-3">
+        <input type="search" name="key" value="${(key!'')?html}" aria-label="${_res.search?html}"
+               placeholder="${_res.searchTip?html}" class="zr-field h-11 min-h-11 w-full sm:flex-1 px-4 text-sm"/>
+        <button type="submit" class="h-11 rounded-lg bg-blue-600 px-5 text-sm font-semibold text-white">${_res.search?html}</button>
+    </form>
+</article>

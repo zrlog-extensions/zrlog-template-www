@@ -4,16 +4,16 @@
 <nav class="sticky top-0 z-50 border-b border-gray-200 bg-white py-3 dark:border-gray-800 dark:bg-black" id="header">
     <div class="container mx-auto flex items-center justify-between px-4 md:px-6">
         <div class="flex min-w-0 items-center">
-            <a href="${baseUrl?html}" class="mr-8 flex shrink-0 items-center gap-2 text-xl font-bold text-gray-950 dark:text-white" aria-label="${_res.home?html}">
-                <img src="${logoUrl?html}" alt="" class="h-9 w-9"/>
-                <span>${(_res.navBarBrand!'')?html}</span>
+            <a href="${baseUrl?html}" class="zr-brand mr-4 flex min-w-0 items-center gap-2 text-xl font-bold text-gray-950 dark:text-white md:mr-8" aria-label="${_res.home?html}">
+                <img src="${logoUrl?html}" alt="" class="h-9 w-9 shrink-0"/>
+                <span class="truncate">${(_res.navBarBrand!'')?html}</span>
             </a>
-            <ul class="hidden items-center gap-1 xl:flex">
+            <ul class="hidden shrink-0 items-center gap-1 xl:flex">
                 <@nav.navigation logNavs=init.logNavs/>
             </ul>
         </div>
 
-        <div class="flex items-center gap-2 md:gap-3">
+        <div class="flex shrink-0 items-center gap-2 md:gap-3">
             <#nested "beforeTheme">
             <button type="button" data-theme-button
                     class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 text-gray-700 transition-colors hover:border-blue-500 hover:text-blue-600 dark:border-gray-700 dark:text-gray-300"
@@ -35,11 +35,11 @@
        role="dialog" aria-modal="true" aria-hidden="true" aria-label="${_res.mobileNav?html}">
     <div class="flex h-full flex-col">
         <div class="mb-8 flex items-center justify-between">
-            <a href="${baseUrl?html}" class="flex items-center gap-2 text-lg font-bold text-gray-950 dark:text-white">
-                <img src="${logoUrl?html}" alt="" class="h-8 w-8"/>
-                <span>${(_res.navBarBrand!'')?html}</span>
+            <a href="${baseUrl?html}" class="flex min-w-0 items-center gap-2 text-lg font-bold text-gray-950 dark:text-white">
+                <img src="${logoUrl?html}" alt="" class="h-8 w-8 shrink-0"/>
+                <span class="truncate">${(_res.navBarBrand!'')?html}</span>
             </a>
-            <button type="button" id="closeSidebar" class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-950 dark:text-gray-400 dark:hover:bg-gray-900 dark:hover:text-white" aria-label="${_res.closeNav?html}">
+            <button type="button" id="closeSidebar" class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-950 dark:text-gray-400 dark:hover:bg-gray-900 dark:hover:text-white" aria-label="${_res.closeNav?html}">
                 <i class="ri-close-line text-xl"></i>
             </button>
         </div>
