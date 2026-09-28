@@ -1,0 +1,51 @@
+.zr-site {
+    --site-ink: #171717;
+    --site-muted: #666666;
+    --site-line: #e5e5e5;
+    --site-paper: #ffffff;
+    --site-soft: #f7f7f7;
+    --site-tint: #eff6ff;
+    --site-tint-line: #dbeafe;
+}
+
+.dark .zr-site {
+    --site-ink: #f5f5f5;
+    --site-muted: #a3a3a3;
+    --site-line: #333333;
+    --site-paper: #141414;
+    --site-soft: #1c1c1c;
+    --site-tint: #111d2e;
+    --site-tint-line: #24354e;
+}
+
+.zr-site .container { max-width: 1200px; }
+
+
+:where([class^="ri-"])::before { content: "\f3c2"; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: Inter, "PingFang SC", "Microsoft YaHei", sans-serif;
+    letter-spacing: 0;
+}
+.dark #header { background-color: #000 !important; }
+:focus-visible { outline: 3px solid #60a5fa; outline-offset: 3px; }
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+.zr-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    color: #374151;
+    transition: color 150ms, background-color 150ms;
+}
+.zr-nav-link:hover { background: #f3f4f6; color: #030712; }
+.dark .zr-nav-link { color: #d1d5db; }
+.dark .zr-nav-link:hover { background: #111827; color: #fff; }
+.zr-nav-link[aria-current="page"] { background: #eff6ff; color: var(--color-primary); font-weight: 600; }
+.dark .zr-nav-link[aria-current="page"] { background: rgb(23 37 84 / 60%); color: #60a5fa; }
