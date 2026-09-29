@@ -37,6 +37,21 @@
     .dark .zr-site .zr-page > .zr-page-intro { margin-block: 8px 24px; padding-block: 24px; }
 }
 
+/* Plain intros share the page's surface and content alignment. */
+.zr-site .zr-page > .zr-page-intro.zr-page-intro--plain {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding-block: 32px 48px;
+    background: transparent;
+    color: var(--site-ink);
+    border-radius: 0;
+}
+.zr-page-intro--plain nav { color: var(--site-muted); }
+@media (max-width: 639px) {
+    .zr-site .zr-page > .zr-page-intro.zr-page-intro--plain { padding-block: 24px 36px; }
+}
+
 /* Shared reading styles for website content, articles and plugin Markdown. */
 .zr-site :is(.zr-rich-text, .markdown-body) {
     color: var(--site-ink);

@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.hibegin</groupId>
     <artifactId>zrlog-template-www</artifactId>
-    <version>4.0.0</version>
+    <version>4.0.1-SNAPSHOT</version>
     <name>zrlog-template-www</name>
     <description>ZrLog bundled theme resources and ServiceLoader provider</description>
     <url>https://github.com/zrlog-extensions/zrlog-template-www</url>
@@ -25,6 +25,12 @@
         <developerConnection>scm:git:ssh://git@github.com/zrlog-extensions/zrlog-template-www.git</developerConnection>
         <url>https://github.com/zrlog-extensions/zrlog-template-www</url>
     </scm>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>central</id>
+            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
     <properties>
         <maven.compiler.release>11</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -62,6 +68,11 @@
             </resource>
         </resources>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.4</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
