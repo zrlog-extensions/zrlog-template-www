@@ -1,27 +1,27 @@
 <aside class="zr-blog-sidebar space-y-6">
     <#-- 广告位 -->
     <#if _res.widgetAd?has_content>
-        <div class="zr-panel p-5">
+        <div class="zr-panel zr-panel--tonal p-6">
             ${_res.widgetAd}
         </div>
     </#if>
 
     <#-- 搜索框 -->
-    <form action="${searchUrl}" method="post" class="zr-panel p-5 space-y-4">
-        <h3 class="text-lg font-bold text-gray-950 dark:text-white">${_res.search}</h3>
+    <form action="${searchUrl}" method="post" class="zr-panel zr-panel--tonal zr-blog-search p-6 space-y-4">
+        <label for="blog-search" class="block text-title text-on-surface">${_res.search}</label>
         <div class="flex items-stretch gap-2">
             <input
-                    type="search"
+                    type="search" id="blog-search"
                     aria-label="${_res.search?html}"
                     name="key"
-                    value="${key!""}"
+                    value="${(key!'')?html}"
                     placeholder="${_res.searchTip}"
-                    class="zr-field min-w-0 h-11 flex-1 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-950 rounded-lg px-4 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 focus:outline-none w-full transition-all dark:text-white"
+                    class="zr-field w-full px-4 text-sm"
             />
             <button
                     type="submit"
-                    class="h-11 shrink-0 inline-flex items-center justify-center gap-1.5 bg-blue-600 text-white text-sm font-medium px-5 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
-            ><i class="ri-search-line text-lg"></i> ${_res.search}</button>
+                    class="zr-button zr-button--filled shrink-0"
+            ><i class="ri-search-line text-lg" aria-hidden="true"></i> ${_res.search}</button>
         </div>
     </form>
 
@@ -34,14 +34,14 @@
                 <#switch plugin.pluginName>
 
                     <#case "types">
-                        <div class="zr-panel p-5">
-                            <h3 class="text-lg font-bold text-gray-950 dark:text-white mb-4 pb-2 border-b border-gray-100 dark:border-gray-800">${_res.category}</h3>
-                            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                        <div class="zr-panel zr-panel--tonal p-6">
+                            <h3 class="text-title text-on-surface mb-3">${_res.category}</h3>
+                            <ul class="space-y-2 text-sm text-on-surface-variant">
                                 <#list init.types as type>
                                     <li>
-                                        <a class="flex items-center justify-between group hover:text-blue-600 transition-colors p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-950" href="${type.url}">
-                                            <span class="flex items-center gap-3"><i class="ri-folder-line text-lg text-gray-400 group-hover:text-blue-500"></i> ${type.typeName}</span>
-                                            <span class="bg-gray-100 dark:bg-gray-900 text-gray-400 text-xs px-2 py-0.5 rounded group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">${type.typeamount}</span>
+                                        <a class="flex items-center justify-between zr-list-link" href="${type.url}">
+                                            <span class="flex items-center gap-3"><i class="ri-folder-line text-lg text-on-surface-variant" aria-hidden="true"></i> ${type.typeName}</span>
+                                            <span class="bg-surface-container-highest text-on-surface-variant text-xs px-2 py-0.5 rounded-full">${type.typeamount}</span>
                                         </a>
                                     </li>
                                 </#list>
@@ -50,13 +50,13 @@
                         <#break>
 
                     <#case "links">
-                        <div class="zr-panel p-5">
-                            <h3 class="text-lg font-bold text-gray-950 dark:text-white mb-4 pb-2 border-b border-gray-100 dark:border-gray-800">${_res.link}</h3>
-                            <ul class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                        <div class="zr-panel zr-panel--tonal p-6">
+                            <h3 class="text-title text-on-surface mb-3">${_res.link}</h3>
+                            <ul class="space-y-1 text-sm text-on-surface-variant">
                                 <#list init.links as link>
                                     <li>
-                                        <a class="flex items-center gap-3 group hover:text-blue-600 transition-colors p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-950" href="${link.url}" title="${link.alt}" target="_blank">
-                                            <i class="ri-link text-lg text-gray-400 group-hover:text-blue-500"></i> ${link.linkName}
+                                        <a class="flex items-center gap-3 zr-list-link" href="${link.url}" title="${link.alt}" target="_blank">
+                                            <i class="ri-link text-lg text-on-surface-variant" aria-hidden="true"></i> ${link.linkName}
                                         </a>
                                     </li>
                                 </#list>
@@ -65,20 +65,20 @@
                         <#break>
 
                     <#case "archives">
-                        <div class="zr-panel p-5">
-                            <h3 class="text-lg font-bold text-gray-950 dark:text-white mb-4 pb-2 border-b border-gray-100 dark:border-gray-800">${_res.archive}</h3>
-                            <ul id="archive-list" class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                        <div class="zr-panel zr-panel--tonal p-6">
+                            <h3 class="text-title text-on-surface mb-3">${_res.archive}</h3>
+                            <ul id="archive-list" class="space-y-1 text-sm text-on-surface-variant">
                                 <#list init.archiveList as archive>
                                     <li class="archive-item">
-                                        <a class="flex items-center justify-between group hover:text-blue-600 transition-colors p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-950" href="${archive.url}" rel="nofollow">
-                                            <span class="flex items-center gap-3"><i class="ri-archive-line text-lg text-gray-400 group-hover:text-blue-500"></i> ${archive.text}</span>
-                                            <span class="bg-gray-100 dark:bg-gray-900 text-gray-400 text-xs px-2 py-0.5 rounded group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">${archive.count}</span>
+                                        <a class="flex items-center justify-between zr-list-link" href="${archive.url}" rel="nofollow">
+                                            <span class="flex items-center gap-3"><i class="ri-archive-line text-lg text-on-surface-variant" aria-hidden="true"></i> ${archive.text}</span>
+                                            <span class="bg-surface-container-highest text-on-surface-variant text-xs px-2 py-0.5 rounded-full">${archive.count}</span>
                                         </a>
                                     </li>
                                 </#list>
                             </ul>
                             <div id="archive-more-btn-container" class="hidden mt-2">
-                                <button id="archive-more-btn" class="w-full text-xs text-center text-gray-400 hover:text-blue-600 transition-colors py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-950 cursor-pointer">
+                                <button id="archive-more-btn" class="zr-button zr-button--text w-full">
                                     ${_res.more}
                                 </button>
                             </div>
@@ -124,11 +124,11 @@
                         <#break>
 
                     <#case "tags">
-                        <div class="zr-panel p-5">
-                            <h3 class="text-lg font-bold text-gray-950 dark:text-white mb-4 pb-2 border-b border-gray-100 dark:border-gray-800">${_res.tag}</h3>
+                        <div class="zr-panel zr-panel--tonal p-6">
+                            <h3 class="text-title text-on-surface mb-3">${_res.tag}</h3>
                             <div class="flex flex-wrap gap-2">
                                 <#list init.tags as tag>
-                                    <a class="px-2 py-1 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 text-xs font-medium rounded hover:bg-blue-50 hover:text-blue-600 transition-colors" href="${tag.url}">
+                                    <a class="zr-chip" href="${tag.url}">
                                          ${tag.text}
                                     </a>
                                 </#list>

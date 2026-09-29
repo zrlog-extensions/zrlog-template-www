@@ -105,7 +105,7 @@
                 backToTop.classList.toggle('invisible', !visible);
             };
             window.addEventListener('scroll', syncBackToTop, {passive: true});
-            backToTop.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+            backToTop.addEventListener('click', () => window.scrollTo({top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'}));
             syncBackToTop();
         }
 

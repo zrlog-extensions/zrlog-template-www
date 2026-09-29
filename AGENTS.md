@@ -1,5 +1,7 @@
 # 维护约定
 
+- 产品表达读取 [Ops 产品文案规范](../zrlog-ops/docs/content-writing-guide.md)，语言资源与消费者集成见 README。
+- UI 任务先读 [Ops UI 统一入口](../zrlog-ops/docs/ui-design-guide.md)，按其工程索引进入专项规范与验收契约；本地源码和预览方式见 [README](README.md)。
 - 这是 zrlog-extensions 下的独立 Maven Central 制品，使用 Java 11。
 - 主题源码和包内路径保持稳定，不复制回博客渲染工程；不登记主题市场。
 - 原生主题版本与 template.properties 一致；Hexo 版本严格与 package.json 一致，保留上游来源、许可证与版权说明。

@@ -8,7 +8,7 @@
     <#include "_common/auto-hljs.ftl">
     ${globalStyle!''}
 </head>
-<body class="zr-site min-h-screen bg-white text-gray-900 dark:bg-black dark:text-gray-200">
+<body class="zr-site min-h-screen bg-surface text-on-surface">
 <#import "_site/header.ftl" as shell>
 <#assign headerResources = _res + {"navBarBrand": (_res.navBarBrand?has_content)?then(_res.navBarBrand, webSite.title!'')}>
 <@shell.header baseUrl=baseUrl init=init _res=headerResources; slot>
