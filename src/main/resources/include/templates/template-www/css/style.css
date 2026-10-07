@@ -15,7 +15,7 @@
 .zr-blog-main article > div { min-width: 0; }
 .zr-blog-main h2 { overflow-wrap: anywhere; }
 
-/* Align the article heading and breadcrumbs with the centered reading column. */
+/* Align the heading's start with the reading column; its banner can be wider. */
 .zr-blog-detail > .zr-page-intro > .container {
     display: grid;
     grid-template-columns: minmax(24px, 1fr) minmax(0, var(--blog-reading-width)) minmax(24px, 1fr);
@@ -32,6 +32,10 @@
     .zr-blog-layout { grid-template-columns: minmax(0, 1fr) var(--blog-sidebar-width); }
     .zr-blog-detail > .zr-page-intro > .container {
         grid-template-columns: minmax(32px, 1fr) minmax(0, var(--blog-reading-width)) minmax(32px, 1fr) calc(var(--blog-column-gap) + var(--blog-sidebar-width));
+    }
+    .zr-blog-detail > .zr-page-intro > .container > .grid {
+        grid-column: 2 / -1;
+        padding-inline-end: 32px;
     }
 }
 @media (max-width: 639px) {

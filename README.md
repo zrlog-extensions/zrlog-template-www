@@ -2,7 +2,7 @@
 
 独立的 ZrLog 内置主题资源 JAR，通过 Java ServiceLoader 注册，不属于主题市场索引。
 
-Maven 坐标：`com.hibegin:zrlog-template-www:4.0.1`。主题 id 与包内路径保持 `template-www`、`include/templates/template-www/`。POM、template.properties 与发布 tag 的版本必须一致。
+Maven 坐标：`com.hibegin:zrlog-template-www:4.0.2`。主题 id 与包内路径保持 `template-www`、`include/templates/template-www/`。POM、template.properties 与发布 tag 的版本必须一致。
 
 先构建 zrlog-template-spi，再运行 `./mvnw verify` 或 `./mvnw install`。部署应用引入 JAR 即可发现主题，无需运行时下载或复制源码。
 

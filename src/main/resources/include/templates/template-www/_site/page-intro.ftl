@@ -17,8 +17,8 @@
                 </nav>
             </#if>
 
-            <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
-                <div class="max-w-3xl">
+            <div class="grid gap-6<#if hasActions> lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center</#if>">
+                <div class="min-w-0">
                     <h1 class="text-page-title">${title?html}</h1>
                     <#if summary?has_content><p class="mt-4 max-w-2xl text-base leading-7 ${tonal?then('text-on-primary-container', 'text-on-surface-variant')}">${summary?html}</p></#if>
                     <#if meta?size gt 0>
