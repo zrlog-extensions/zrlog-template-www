@@ -3,8 +3,8 @@
     const root = document.documentElement;
     const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
     // Surface roles follow @zrlog/ui/material (material-colors.ts), without its
-    // React/Ant Design runtime. Light filled actions preserve the configured
-    // brand exactly; text links have their own contrast-adjusted role. Not HCT.
+    // React/Ant Design runtime. The configured seed remains --color-primary;
+    // action and reading roles are adjusted for their actual foreground. Not HCT.
     const mix = (color, other, amount) => color.map((channel, i) => Math.round(channel + (other[i] - channel) * amount));
     const white = [255, 255, 255];
     const black = [0, 0, 0];
@@ -31,9 +31,13 @@
         ].some(([a, b]) => contrast(a, b) < 4.5); i++) {
             link = mix(link, dark ? white : black, 0.05);
         }
-        const primary = dark ? link : brand;
-        // Light filled actions use the requested brand treatment: exact seed
-        // with white labels. Dark mode keeps its independently paired foreground.
+        let primary = dark ? link : brand;
+        // Keep the brand hue while giving normal-size white labels enough contrast.
+        if (!dark) {
+            for (let i = 0; i < 100 && contrast(primary, white) < 4.8; i++) {
+                primary = mix(primary, black, 0.025);
+            }
+        }
         const onPrimary = !dark || contrast(primary, white) >= 4.5 ? white : black;
         // Prefer the on-color state layer when it keeps labels readable. Near
         // the contrast threshold, mix in the opposite direction instead.
@@ -45,6 +49,15 @@
             'primary-active': mix(primary, stateColor, 0.12),
             'primary-container': primaryContainer,
             'on-primary-container': mix(brand, dark ? white : black, dark ? 0.9 : 0.8),
+            'secondary-container': mix(brand, gray(dark ? 55 : 228), 0.8),
+            'on-secondary-container': mix(brand, gray(dark ? 240 : 29), 0.88),
+            // A warm companion to ZrLog's blue and gold identity.
+            'tertiary-container': dark ? [75, 57, 19] : [255, 233, 177],
+            'on-tertiary-container': dark ? [255, 231, 172] : [65, 46, 0],
+            error: dark ? [255, 180, 171] : [159, 36, 29],
+            'error-container': dark ? [79, 25, 23] : [255, 233, 229],
+            success: dark ? [160, 218, 173] : [29, 103, 51],
+            'success-container': dark ? [21, 52, 31] : [218, 242, 221],
             surface, container: mix(brand, gray(dark ? 28 : 255), 0.98),
             'container-high': mix(brand, gray(dark ? 40 : 241), 0.96),
             'container-highest': containerHighest,
@@ -69,7 +82,7 @@
             sheet.media = sheet.dataset.themeStylesheet === (isDark ? 'dark' : 'light') ? 'all' : 'not all';
         });
         document.querySelectorAll('[data-theme-icon]').forEach((icon) => {
-            icon.className = isDark ? 'ri-sun-line text-lg' : 'ri-moon-line text-lg';
+            icon.dataset.icon = isDark ? 'light_mode' : 'dark_mode';
         });
         document.querySelectorAll('[data-theme-button]').forEach((button) => {
             button.setAttribute('aria-pressed', String(isDark));

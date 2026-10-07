@@ -9,19 +9,19 @@
     <#-- 搜索框 -->
     <form action="${searchUrl}" method="post" class="zr-panel zr-panel--tonal zr-blog-search p-6 space-y-4">
         <label for="blog-search" class="block text-title text-on-surface">${_res.search}</label>
-        <div class="flex items-stretch gap-2">
+        <div class="zr-search">
             <input
                     type="search" id="blog-search"
                     aria-label="${_res.search?html}"
                     name="key"
                     value="${(key!'')?html}"
                     placeholder="${_res.searchTip}"
-                    class="zr-field w-full px-4 text-sm"
+                    class="min-w-0"
             />
             <button
                     type="submit"
-                    class="zr-button zr-button--filled shrink-0"
-            ><i class="ri-search-line text-lg" aria-hidden="true"></i> ${_res.search}</button>
+                    class="zr-icon-button" aria-label="${_res.search?html}"
+            ><i class="zr-icon text-lg" data-icon="search" aria-hidden="true"></i></button>
         </div>
     </form>
 
@@ -40,7 +40,7 @@
                                 <#list init.types as type>
                                     <li>
                                         <a class="flex items-center justify-between zr-list-link" href="${type.url}">
-                                            <span class="flex items-center gap-3"><i class="ri-folder-line text-lg text-on-surface-variant" aria-hidden="true"></i> ${type.typeName}</span>
+                                            <span class="flex items-center gap-3"><i class="zr-icon text-lg text-on-surface-variant" data-icon="folder" aria-hidden="true"></i> ${type.typeName}</span>
                                             <span class="bg-surface-container-highest text-on-surface-variant text-xs px-2 py-0.5 rounded-full">${type.typeamount}</span>
                                         </a>
                                     </li>
@@ -56,7 +56,7 @@
                                 <#list init.links as link>
                                     <li>
                                         <a class="flex items-center gap-3 zr-list-link" href="${link.url}" title="${link.alt}" target="_blank">
-                                            <i class="ri-link text-lg text-on-surface-variant" aria-hidden="true"></i> ${link.linkName}
+                                            <i class="zr-icon text-lg text-on-surface-variant" data-icon="link" aria-hidden="true"></i> ${link.linkName}
                                         </a>
                                     </li>
                                 </#list>
@@ -71,7 +71,7 @@
                                 <#list init.archiveList as archive>
                                     <li class="archive-item">
                                         <a class="flex items-center justify-between zr-list-link" href="${archive.url}" rel="nofollow">
-                                            <span class="flex items-center gap-3"><i class="ri-archive-line text-lg text-on-surface-variant" aria-hidden="true"></i> ${archive.text}</span>
+                                            <span class="flex items-center gap-3"><i class="zr-icon text-lg text-on-surface-variant" data-icon="archive" aria-hidden="true"></i> ${archive.text}</span>
                                             <span class="bg-surface-container-highest text-on-surface-variant text-xs px-2 py-0.5 rounded-full">${archive.count}</span>
                                         </a>
                                     </li>

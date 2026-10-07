@@ -2,13 +2,13 @@
 
 独立的 ZrLog 内置主题资源 JAR，通过 Java ServiceLoader 注册，不属于主题市场索引。
 
-Maven 坐标：`com.hibegin:zrlog-template-www:4.0.1-SNAPSHOT`。主题 id 与包内路径保持 `template-www`、`include/templates/template-www/`。版本以 template.properties 为准。
+Maven 坐标：`com.hibegin:zrlog-template-www:4.0.1`。主题 id 与包内路径保持 `template-www`、`include/templates/template-www/`。POM、template.properties 与发布 tag 的版本必须一致。
 
 先构建 zrlog-template-spi，再运行 `./mvnw verify` 或 `./mvnw install`。部署应用引入 JAR 即可发现主题，无需运行时下载或复制源码。
 
 构建由 SPI 工具自动生成资源索引、Native Image resource-config.json 与 provider 构造器反射注册，勿手工维护资源清单。
 
-快照发布：`main` 保持 `-SNAPSHOT` 版本，推送后先执行 `clean verify`，再通过现有 OSSRH_USERNAME / OSSRH_PASSWORD 发布至 `https://central.sonatype.com/repository/maven-snapshots/`。消费者需启用该快照仓库；需要重试时可手动运行同一 workflow。
+分支、PR 和手动分支构建只执行 `clean verify`。项目及直接、传递依赖必须使用正式版本，Maven 在 `validate` 阶段拒绝 SNAPSHOT；不再发布快照。
 
 正式发布到 Maven Central：配置现有 OSSRH_USERNAME、OSSRH_PASSWORD、GPG_PRIVATE_KEY、GPG_PASSPHRASE 后推送匹配正式版本的 tag。先发布 SPI，再发布主题；已发布的正式版本和 tag 不覆盖。
 
@@ -26,9 +26,9 @@ UI 任务统一从 [Ops UI 总入口](../zrlog-ops/docs/ui-design-guide.md) 加�
 - `_site/navigation.ftl`：直接使用 `init.logNavs` 的 `url / navName / icon / current`。不扩展官网专用导航字段，不维护第二套导航协议；语言切换和下载按钮放在 header 插槽中。
 - `_site/footer.ftl`：`footer` 接收原生 `webSite` 和 `_res`，使用 `webSite.title / icp`、`_res.footerLinkExt / footerLink / backToTop`。现有页脚 HTML 配置继续有效。
 - `_site/assets.ftl`：`head` 接收主题资源根路径 `url` 和 `_res`，统一字体图标、Tailwind 配置、基础样式和首次绘制前的暗色设置；主题色使用 `_res.colorPrimary`。
-- `_site/page-intro.ftl`：共用页面标题、简介、面包屑、元信息与操作插槽。默认使用 tonal 容器；传入 `tonal=false` 时使用与正文对齐的无底色标题区。官网适配其页面数据；博客直接传入站点、分类和文章字段。
+- `_site/page-intro.ftl`：共用页面标题、简介、面包屑、元信息与操作插槽。默认使用 tonal 容器；传入 `tonal=false` 时使用与正文对齐的无底色标题区。官网适配其页面数据；博客分类和文章页展示对应标题，首页与普通分页直接展示文章列表，不重复站点介绍。
 - `css/site-shell.css`：统一 1200px 容器、16px / 24px 页面边距、导航、页脚与明暗色变量。`css/site-content.css`：页面标题、正文、代码、表格、卡片和输入控件；官网不再维护这些规则的副本。
-- `js/site-theme.js`、`js/site-shell.js`：暗色切换（含正文语法高亮）、移动菜单、焦点管理和返回顶部。配套的 WOFF2 / WOFF 字体、`js/tailwindcss-3.4.6.js` 一起分发。
+- `js/site-theme.js`、`js/site-shell.js`：暗色切换（含正文语法高亮）、移动菜单、焦点管理和返回顶部。配套的 Material Symbols Rounded WOFF2 字体、`js/tailwindcss-3.4.6.js` 一起分发。
 
 博客列表、详情、搜索、分页、侧栏和插件归档均使用这套样式。`css/style.css` 只补充博客列布局；正文不再加载旧 `editormd.css`。导航栏名称未配置时使用站点标题。主题色未配置时与官网默认值一致。
 
@@ -47,15 +47,34 @@ bin/theme preview ../zrlog-template-www/src/main/resources/include/templates/tem
 
 预览标识仅用于避免旧运行时内置的同名主题覆盖当前源码，制品的主题 id 不变。访问 `/`、`/writing-on-my-own-site`、`/all-2` 检查页面；源码的 FTL/CSS/JS 修改会同步，国际化和配置修改后需重启。用 `bin/theme smoke --base-url http://127.0.0.1:7080` 检查中英文路由与资源。视觉验收需同时检查官网和博客在桌面、手机、明暗模式下的容器对齐、正文溢出、菜单和主题切换。
 
-## Tailwind M3 试点实现
+## 共享 Material 3 Expressive 实现
 
 `_site/assets.ftl` 扩展现有 Tailwind 3.4.6 配置，不增加组件库或另一套构建。布局继续使用 Tailwind；共享组件的形状与状态层在 `site-shell.css` / `site-content.css` 维护。
 
 - 颜色工具类：`bg-surface` / `text-on-surface`、`bg-surface-container`、`bg-surface-container-high`、`bg-primary` / `text-on-primary`、`bg-primary-container` / `text-on-primary-container`、`text-on-surface-variant`、`text-link`、`border-outline` / `border-outline-variant`。前景和容器成对使用，无需给同一角色另外写 `dark:`。
-- 排版与形状：`text-display`、`text-page-title`、`text-headline`、`text-title`、`text-label`；`rounded-card`、`rounded-button`、`rounded-field`、`rounded-chip`。页面标题卡片限制在 `--site-content-width` 内，使用 28–40px 响应式标题、24px 圆角及与正文分开的间距。阅读正文使用共享 `.zr-rich-text`，正文、导航标签和页面标题分别管理行高。
+- 排版与形状：`text-display`、`text-page-title`、`text-headline`、`text-title`、`text-label`；`rounded-card`、`rounded-button`、`rounded-field`、`rounded-chip`。页面标题卡片限制在 `--site-content-width` 内，使用 32–52px 响应式标题、48px 大圆角与 16px 小圆角组合，并与正文保持独立间距。阅读正文使用共享 `.zr-rich-text`，正文、导航标签和页面标题分别管理行高。
 - 组件：`.zr-button` 配合 `--filled / --tonal / --outlined / --text`；`.zr-icon-button`、`.zr-chip`、`.zr-list-link`、`.zr-panel` 及 `--tonal / --outlined`。选中导航与分页使用 `aria-current`，主题按钮使用 `aria-pressed`；tonal / outlined / text 的 hover / pressed 状态层使用组件自身前景色，filled 使用确保标签可读的背景变化；键盘焦点单独描边。
-- `site-theme.js` 参考 `zrlog-frontend-common/packages/ui/src/material-colors.ts` 的 sRGB 表面混色，生成当前品牌色的明暗角色。浅色 filled 背景精确保留配置主色（默认 `#1677ff`），浅色标签按本轮确认使用白色；hover / pressed 使用加深背景的状态反馈。正文链接使用独立校正后的 `text-link` / `--site-link`，不要把 `text-primary` 当作正文链接角色。深色主操作仍使用派生的浅色。它不依赖 React / Ant Design，也不是 HCT 动态配色算法。修改公共包配色规则时应对照此映射复核；现有 `--color-primary` 仍保存原始配置色。
+- `site-theme.js` 参考 `zrlog-frontend-common/packages/ui/src/material-colors.ts` 的 sRGB 表面混色，生成当前品牌色的明暗角色。原始品牌色（默认 `#1677ff`）保留在 `--color-primary`；浅色 filled 从品牌色派生可读动作色，与白字的目标对比度至少 4.8:1，hover / pressed 继续检查配对前景。正文链接使用独立校正后的 `text-link` / `--site-link`，不要把 `text-primary` 当作正文链接角色。深色主操作仍使用派生的浅色。它不依赖 React / Ant Design，也不是 HCT 动态配色算法。修改公共包配色规则时应对照此映射复核；现有 `--color-primary` 仍保存原始配置色。
 - `--site-paper / --site-container / --site-soft / --site-tint / --site-ink / --site-muted` 等 CSS 变量是官网扩展的兼容接口。已有官网蓝色按钮和中性色工具类保留共享映射，官网特有内容布局继续由消费者维护。
 - 保留原有 `theme` 偏好、系统主题监听、跨页切换、代码高亮与移动抽屉焦点管理；按钮点击区域至少 44px，并尊重减少动效设置。搜索保留可见标签，长文章标题和前后篇链接允许换行。
 
-试点验收运行现有 Maven 渲染/制品检查，并按上面的真实博客预览及官网验收契约检查。未修改 SPI、资源路径或静态资源目录清单；不要把 JVM 验证当作完整 Native Image 验证。
+共享组件验收运行现有 Maven 渲染/制品检查，并按上面的真实博客预览及官网验收契约检查。未修改 SPI、资源路径或静态资源目录清单；不要把 JVM 验证当作完整 Native Image 验证。
+
+### Expressive 组件与消费者边界
+
+- `site-shell.css` 提供普通 / large 按钮、48px 图标按钮、导航选中态和按压形状过渡。过渡使用 CSS 曲线并遵守减少动画偏好，不模拟原生弹簧物理。
+- `site-content.css` 提供 `.zr-search`、`.zr-button-group`、`.zr-disclosure` / `.zr-disclosure-icon`、`.zr-choice`、`.zr-card-link`、`.zr-icon-tile`、`.zr-badge`、`.zr-notice`。官网 API 页与博客搜索共同消费基础类，不在官网复制控件外观。
+- `.zr-search` 包裹输入框及操作；有自定义清除按钮时通过 `data-clear-search` 隐藏浏览器的重复清除图标。可见 label、提交/过滤行为由原页面维护。
+- `.zr-button-group` 使用当前按钮的 `aria-selected` 表达选中形状和配色。消费方继续管理 tabs 方向键、焦点和对应 panel，不新增第二套交互控制器。
+- `.zr-disclosure` 只根据当前原生 details 的 open 状态旋转自身 summary 内的图标，避免父子状态串联。
+- secondary / tertiary 容器及对应 on-color 集中由 `site-theme.js` 生成；暖色容器呼应品牌标识。排版使用共享 `text-display`、`text-page-title`、`text-section-title` 等角色。它是现有 FreeMarker / Tailwind 上的 Web 实现，不是 MUI React 或官方 Android 组件移植。
+
+### Material Symbols 图标
+
+官网和博客共用 `fonts/material-symbols.css` / `material-symbols-rounded.woff2`，由 `_site/assets.ftl` 本地预加载，不请求 Google Fonts。字体来自 Google 官方 Material Symbols Rounded，包含 82 个符号（约 70 KiB）；来源 URL、轴范围、名称与 SHA-256 保存在 `fonts/material-symbols-source.json`，Apache-2.0 许可证随资源分发。Remix Icon 的 CSS、WOFF 与 WOFF2 已移除。
+
+统一标记为 `<i class="zr-icon" data-icon="search" aria-hidden="true"></i>`；图标按钮的可访问名称放在外层按钮。`.zr-icon` 默认 20px，导航与图标按钮统一为 24px，其余可用现有文字尺寸工具类调整；选中导航、选中按钮与按下切换按钮使用 FILL=1。SVG 插画中的图标通过 `.zr-icon-svg` 使用同一字体。主题切换和复制成功只更新 `data-icon`。
+
+`_site/icons.ftl` 列出子集支持的 Material 名称，并将旧博客导航中保存的 `ri-*` 名称转换成 Material 名称；未知名称显示 `link`，不会继续加载旧字体。新功能图标直接填写 Material 名称。需要新符号时更新名称列表和 Google Fonts 子集请求，核验字体 SHA-256，并运行渲染、资源导出与两个消费者的浏览器检查。保留 ZrLog、GitHub、Docker、Gitee 的独立品牌 SVG；UI 功能图标统一使用 Material Symbols。
+
+GitHub 品牌标识集中在 `_site/icons.ftl` 的 `render` 宏中：`<@icons.render name="github"/>`。它使用 GitHub 官方 Primer 的 `mark-github-16` SVG，MIT 许可证在 `images/github-mark-LICENSE.txt`；颜色继承 `currentColor`，尺寸与共享图标一致。`repositoryIcon(url)` 根据 GitHub 域名选择品牌标识，其他仓库保留通用代码图标。旧 `ri-github-line / ri-github-fill` 导航值也转换为该 SVG。调用方保留链接名称，装饰 SVG 不重复朗读。

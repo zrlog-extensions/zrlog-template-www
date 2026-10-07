@@ -1,6 +1,7 @@
 <#-- url follows the blog contract and resolves the theme's public resources for each consumer. -->
 <#macro head url _res={}>
-    <link href="${url?html}/fonts/remixicon.css" rel="stylesheet"/>
+    <link href="${url?html}/fonts/material-symbols-rounded.woff2" rel="preload" as="font" type="font/woff2" crossorigin/>
+    <link href="${url?html}/fonts/material-symbols.css" rel="stylesheet"/>
     <link href="${url?html}/css/site-shell.css" rel="stylesheet"/>
     <link href="${url?html}/css/site-content.css" rel="stylesheet"/>
     <style>:root { --color-primary: ${(_res.colorPrimary?has_content)?then(_res.colorPrimary, '#1677ff')?html}; }</style>
@@ -15,6 +16,10 @@
                         primary: 'var(--site-primary)', 'on-primary': 'var(--site-on-primary)',
                         link: 'var(--site-link)',
                         'primary-container': 'var(--site-tint)', 'on-primary-container': 'var(--site-on-tint)',
+                        'secondary-container': 'var(--site-secondary-container)', 'on-secondary-container': 'var(--site-on-secondary-container)',
+                        'tertiary-container': 'var(--site-tertiary-container)', 'on-tertiary-container': 'var(--site-on-tertiary-container)',
+                        error: 'var(--site-error)', 'error-container': 'var(--site-error-container)',
+                        success: 'var(--site-success)', 'success-container': 'var(--site-success-container)',
                         surface: 'var(--site-paper)', 'on-surface': 'var(--site-ink)',
                         'on-surface-variant': 'var(--site-muted)',
                         'surface-container': 'var(--site-container)',
@@ -31,9 +36,10 @@
                         'field': 'var(--site-shape-xs)', 'chip': 'var(--site-shape-sm)'
                     },
                     fontSize: {
-                        'display': ['clamp(2rem, 4vw, 3.5rem)', {lineHeight: '1.2', fontWeight: '500'}],
-                        'page-title': ['clamp(1.75rem, 3vw, 2.5rem)', {lineHeight: '1.25', fontWeight: '500'}],
+                        'display': ['clamp(2.5rem, 5vw, 4.5rem)', {lineHeight: '1.12', fontWeight: '600'}],
+                        'page-title': ['clamp(2rem, 4vw, 3.25rem)', {lineHeight: '1.2', fontWeight: '600'}],
                         'headline': ['1.5rem', {lineHeight: '1.35', fontWeight: '500'}],
+                        'section-title': ['clamp(1.75rem, 3vw, 2.25rem)', {lineHeight: '1.3', fontWeight: '600'}],
                         'title': ['1.125rem', {lineHeight: '1.5', fontWeight: '500'}],
                         'label': ['0.875rem', {lineHeight: '1.25rem', fontWeight: '500'}]
                     },

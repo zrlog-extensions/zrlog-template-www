@@ -18,13 +18,13 @@
             <button type="button" data-theme-button
                     class="zr-icon-button"
                     aria-label="${_res.switchTheme?html}" title="${_res.switchTheme?html}">
-                <i class="ri-moon-line text-lg" aria-hidden="true" data-theme-icon></i>
+                <i class="zr-icon text-lg" data-icon="dark_mode" aria-hidden="true" data-theme-icon></i>
             </button>
             <#nested "afterTheme">
             <button type="button"
                     class="zr-icon-button xl:hidden"
                     id="toggleSidebar" aria-label="${_res.openNav?html}" aria-controls="sidebar" aria-expanded="false">
-                <i class="ri-menu-4-line text-lg" aria-hidden="true"></i>
+                <i class="zr-icon text-lg" data-icon="menu" aria-hidden="true"></i>
             </button>
         </div>
     </div>
@@ -40,7 +40,7 @@
                 <span class="truncate">${(_res.navBarBrand!'')?html}</span>
             </a>
             <button type="button" id="closeSidebar" class="zr-icon-button" aria-label="${_res.closeNav?html}">
-                <i class="ri-close-line text-xl" aria-hidden="true"></i>
+                <i class="zr-icon text-xl" data-icon="close" aria-hidden="true"></i>
             </button>
         </div>
         <ul class="flex flex-col gap-2">

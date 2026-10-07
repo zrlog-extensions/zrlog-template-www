@@ -1,0 +1,37 @@
+@font-face {
+    font-family: 'Material Symbols Rounded';
+    src: url('material-symbols-rounded.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 400 600;
+    font-display: block;
+}
+
+/* One icon contract for server templates, dynamic content and SVG illustrations. */
+.zr-icon, .zr-icon-svg {
+    font-family: 'Material Symbols Rounded';
+    font-weight: 400;
+    font-style: normal;
+    font-feature-settings: 'liga';
+    font-variation-settings: 'FILL' var(--zr-icon-fill, 0), 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    letter-spacing: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+}
+.zr-icon, .zr-brand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    font-size: 20px;
+    line-height: 1;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.zr-icon::before { content: attr(data-icon); }
+.zr-icon-button :is(.zr-icon, .zr-brand-icon),
+.zr-nav-link :is(.zr-icon, .zr-brand-icon) { font-size: 24px; }
+.zr-nav-link[aria-current] .zr-icon,
+[aria-selected='true'] > .zr-icon,
+[aria-pressed='true'] > .zr-icon { --zr-icon-fill: 1; }

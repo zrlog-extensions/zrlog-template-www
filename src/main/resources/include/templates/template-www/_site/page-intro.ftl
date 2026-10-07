@@ -1,3 +1,4 @@
+<#import "icons.ftl" as icons>
 <#macro pageIntro title summary="" breadcrumbs=[] meta=[] hasActions=false breadcrumbLabel="Breadcrumb" tonal=true>
     <section class="zr-page-intro<#if !tonal> zr-page-intro--plain</#if>">
         <div class="container mx-auto px-4 md:px-6">
@@ -5,7 +6,7 @@
                 <nav class="mb-5 flex min-w-0 flex-wrap items-center gap-2 text-label" aria-label="${breadcrumbLabel?html}">
                     <#list breadcrumbs as breadcrumb>
                         <#if breadcrumb?index gt 0>
-                            <i class="ri-arrow-right-s-line shrink-0" aria-hidden="true"></i>
+                            <i class="zr-icon shrink-0" data-icon="chevron_right" aria-hidden="true"></i>
                         </#if>
                         <#if breadcrumb.href??>
                             <a href="${breadcrumb.href?html}" class="${breadcrumb.linkClass!''} break-words underline-offset-4 hover:underline">${breadcrumb.label?html}</a>
@@ -24,7 +25,7 @@
                         <div class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm ${tonal?then('text-on-primary-container', 'text-on-surface-variant')}">
                             <#list meta as item>
                                 <span class="inline-flex items-center gap-2">
-                                    <#if item.icon??><i class="${item.icon}" aria-hidden="true"></i></#if>
+                                    <#if item.icon??><@icons.render name=item.icon/></#if>
                                     ${item.label?html}
                                 </span>
                             </#list>

@@ -4,7 +4,7 @@
 <button id="back-to-top" type="button"
         class="zr-icon-button fixed bottom-6 right-6 z-50 opacity-0 invisible"
         aria-label="${_res.backToTop?html}" title="${_res.backToTop?html}">
-    <i class="ri-arrow-up-line text-xl" aria-hidden="true"></i>
+    <i class="zr-icon text-xl" data-icon="arrow_upward" aria-hidden="true"></i>
 </button>
 <footer class="py-12" id="footer">
     <div class="container mx-auto px-4 md:px-6">

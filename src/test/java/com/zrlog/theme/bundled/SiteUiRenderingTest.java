@@ -33,6 +33,9 @@ public class SiteUiRenderingTest {
                 assertEquals(1, document.select("footer#footer").size());
                 assertEquals(1, document.select("#sidebar[role=dialog][aria-modal=true]").size());
                 assertEquals(2, document.select("a.zr-nav-link[aria-current=page][href='/notes/']").size());
+                assertEquals(2, document.select("a.zr-nav-link[aria-current=page] .zr-icon[data-icon=home]").size());
+                assertEquals(0, document.select("[class*=ri-], link[href*=remixicon]").size());
+                assertEquals(1, document.select("link[rel=preload][as=font][href$='/fonts/material-symbols-rounded.woff2']").size());
                 assertEquals("Notes <&>", document.selectFirst("nav#header a span").text());
                 assertEquals("/notes/favicon.ico", document.selectFirst("nav#header img").attr("src"));
                 assertEquals(1, document.select("[data-theme-button]").size());
@@ -58,6 +61,26 @@ public class SiteUiRenderingTest {
                 Files.writeString(preview, document.outerHtml());
             }
         }
+    }
+
+    @Test
+    public void rendersMaterialNavigationAndFallbackWithoutLegacyFont() throws Exception {
+        Map<String, Object> model = blogModel("en_US");
+        model.put("init", Map.of("logNavs", List.of(
+                Map.of("url", "/notes/settings", "navName", "Settings", "icon", "settings"),
+                Map.of("url", "/notes/custom", "navName", "Custom", "icon", "unknown-custom-icon"),
+                Map.of("url", "/notes/github", "navName", "GitHub", "icon", "github"),
+                Map.of("url", "/notes/legacy-github", "navName", "GitHub", "icon", "ri-github-fill"))));
+        Document document = render("index.ftl", model);
+        assertEquals(2, document.select("a[href='/notes/settings'] .zr-icon[data-icon=settings]").size());
+        assertEquals(2, document.select("a[href='/notes/custom'] .zr-icon[data-icon=link]").size());
+        assertEquals(2, document.select("a[href='/notes/github'] svg[data-brand=github][aria-hidden=true]").size());
+        assertEquals(2, document.select("a[href='/notes/legacy-github'] svg[data-brand=github][aria-hidden=true]").size());
+        try (InputStream font = getClass().getResourceAsStream(ROOT + "fonts/material-symbols-rounded.woff2")) {
+            assertNotNull(font);
+            assertArrayEquals(new byte[]{'w', 'O', 'F', '2'}, font.readNBytes(4));
+        }
+        assertNull(getClass().getResource(ROOT + "fonts/remixicon.woff2"));
     }
 
     @Test
