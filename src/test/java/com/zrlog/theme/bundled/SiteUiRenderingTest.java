@@ -39,7 +39,7 @@ public class SiteUiRenderingTest {
                 assertEquals("Notes <&>", document.selectFirst("nav#header a span").text());
                 assertEquals("/notes/favicon.ico", document.selectFirst("nav#header img").attr("src"));
                 assertEquals(1, document.select("[data-theme-button]").size());
-                assertEquals(locale.equals("en_US") ? "Toggle color theme" : "切换亮暗主题",
+                assertEquals(locale.equals("en_US") ? "Switch between light and dark mode" : "切换浅色或深色模式",
                         document.selectFirst("[data-theme-button]").attr("aria-label"));
                 assertEquals(1, document.select("#custom-footer").size());
                 assertEquals(1, document.select("footer a[href='/notes/about']").size());
